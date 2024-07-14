@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import subprocess
 import sys
 import pathlib
 import shutil
@@ -13,6 +14,7 @@ WIDTH = shutil.get_terminal_size().columns
 class Commands(Enum):
     Help = 0
     Create = 1
+    Run = 2
 
     @staticmethod
     def from_str(v):
@@ -33,6 +35,8 @@ class Cli:
         if self.command == Commands.Create:
             self.create()
             self.questionable_makefile_edit()
+        if self.command == Commands.Run:
+            self.run_exercise()
 
     def instructions(self, error=None):
         if error:
@@ -45,6 +49,7 @@ class Cli:
         stuff.append(commands)
         stuff.append(" example ".center(WIDTH, "#"))
         stuff.append("./cli.py create encapsulation ex00".center(WIDTH))
+        stuff.append("./cli.py run encapsulation ex00".center(WIDTH))
 
         print("\n".join(stuff))
 
@@ -60,6 +65,14 @@ class Cli:
             list_dir.mkdir()
         shutil.copytree(BOILER_DIR, ex_dir, dirs_exist_ok=True)
         Path(ex_dir / "src/.placeholder").unlink()
+
+    def run_exercise(self):
+        list_dir, ex_dir = self.args
+        full_path: Path = CWD / list_dir / ex_dir
+        if not full_path.exists():
+            print(f"{full_path}\nThe path does not exist. Exiting...")
+            sys.exit(1)
+        subprocess.run(["make", "-C", full_path, "run"])
 
     def questionable_makefile_edit(self):
         with open("./Makefile", "r") as file:
@@ -98,7 +111,7 @@ class Cli:
         self.args = args
         if not self.command:
             return False
-        if self.command == Commands.Create:
+        if self.command in [Commands.Create, Commands.Run]:
             if len(args) != 2:
                 return False
         return True
