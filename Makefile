@@ -1,8 +1,14 @@
-FOLDERS = boilerplate
+FOLDERS = boilerplate \
+		  encapsulation/ex00
+
+build:
+	@for folder in $(FOLDERS); do \
+		make -C ./$$folder; \
+	done
 
 run:
 	@for folder in $(FOLDERS); do \
-		make -C ./$$folder; \
+		make -C ./$$folder run; \
 	done
 
 clean:
