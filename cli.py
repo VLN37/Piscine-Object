@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# Author: VLN37 @ github
+
 import subprocess
 import sys
 import pathlib
