@@ -1,4 +1,5 @@
-FOLDERS = boilerplate
+FOLDERS = boilerplate \
+		  encapsulation/ex00
 
 build:
 	@for folder in $(FOLDERS); do \
