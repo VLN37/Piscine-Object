@@ -1,4 +1,6 @@
 */obj
+packages/
+boilerplate/
 
 # Prerequisites
 *.d
