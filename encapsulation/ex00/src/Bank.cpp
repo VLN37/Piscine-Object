@@ -21,7 +21,7 @@ int Bank::create_account(float deposit) {
 
 void Bank::delete_account(int id) {
     AccountMap::iterator it = this->accounts.find(id);
-    if (it == this->accounts.end()) throw std::exception();
+    if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
     // all your base are belong to us
     this->liquidity += it->second.value;
     this->accounts.erase(id);
@@ -29,22 +29,22 @@ void Bank::delete_account(int id) {
 
 float Bank::withdraw(int id, float value) {
     AccountMap::iterator it = this->accounts.find(id);
-    if (it == this->accounts.end()) throw std::exception();
-    if (it->second.value < value) throw std::exception();
+    if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
+    if (it->second.value < value) Bank::Exception(BANK_BALANCE_INSUFFICIENT);
     it->second.value -= value;
     return value;
 }
 
 void Bank::deposit(int id, float value) {
     AccountMap::iterator it = this->accounts.find(id);
-    if (it == this->accounts.end()) throw std::exception();
+    if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
     this->liquidity += value * 0.05;
     it->second.value += value * 0.95;
 }
 
 // We know where you live
 float Bank::loan(float value) {
-    if (value > this->liquidity) throw std::exception();
+    if (value > this->liquidity) throw Bank::Exception(BANK_LIQUIDITY);
     return value;
 }
 
@@ -58,3 +58,7 @@ std::ostream& operator<<(std::ostream& o, const Bank& bank) {
         o << it->second << std::endl;
     return o;
 }
+
+Bank::Exception::Exception(const char* msg) : msg(msg) {}
+
+const char* Bank::Exception::what(void) const throw() { return this->msg; }

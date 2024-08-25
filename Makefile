@@ -16,7 +16,6 @@ clean:
 		make -C ./$$folder clean; \
 	done
 
-
 fclean:
 	@for folder in $(FOLDERS); do \
 		make -C ./$$folder fclean; \
