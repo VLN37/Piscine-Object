@@ -1,26 +1,17 @@
-#include "Bank.hpp"
+#include <cassert>
+
 #include "Account.hpp"
+#include "Bank.hpp"
+
+#define EXPECTS_THROW false
 
 int main(void) {
-    Account accountA = Account();
-    accountA.id      = 0;
-    accountA.value   = 100;
+    Bank bank = Bank();
 
-    Account accountB = Account();
-    accountB.id      = 1;
-    accountB.value   = 100;
+    bank.create_account();
+    bank.create_account(100);
 
-    Bank bank        = Bank();
-    bank.liquidity   = 999;
-    bank.clientAccounts.push_back(&accountA);
-    bank.clientAccounts.push_back(&accountB);
-
-    bank.liquidity -= 200;
-    accountA.value += 400;
-
-    std::cout << "Account : " << std::endl;
-    std::cout << accountA << std::endl;
-    std::cout << accountB << std::endl;
+    assert(bank.audit_liquidity() == 5);
 
     std::cout << " ----- " << std::endl;
 
