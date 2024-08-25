@@ -12,15 +12,17 @@ class Account;
 
 class Bank {
  public:
+    typedef int AccountId;
+
     Bank();
 
-    int   create_account();
-    int   create_account(float first_deposit);
-    void  delete_account(int id);
-    float withdraw(int id, float value);
-    void  deposit(int id, float value);
-    float loan(float value);
-    float audit_liquidity() const;
+    AccountId create_account();
+    AccountId create_account(float first_deposit);
+    void      delete_account(AccountId id);
+    float     withdraw(AccountId id, float value);
+    void      deposit(AccountId id, float value);
+    float     loan(float value);
+    float     audit_liquidity() const;
 
     class Exception : public std::exception {
      public:
@@ -36,11 +38,11 @@ class Bank {
     };
 
  private:
-    typedef std::map<int, Account> AccountMap;
+    typedef std::map<AccountId, Account> AccountMap;
 
     float      liquidity;
     AccountMap accounts;
-    int        sequence;
+    AccountId  sequence;
 
     friend std::ostream& operator<<(std::ostream& o, const Bank& bank);
 };

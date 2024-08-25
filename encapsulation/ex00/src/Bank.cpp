@@ -6,13 +6,13 @@
 
 Bank::Bank() : liquidity(0), sequence(0) {}
 
-int Bank::create_account() {
+Bank::AccountId Bank::create_account() {
     ++this->sequence;
     this->accounts.insert(std::make_pair(sequence, Account(sequence)));
     return sequence;
 }
 
-int Bank::create_account(float deposit) {
+Bank::AccountId Bank::create_account(float deposit) {
     ++this->sequence;
     this->accounts.insert(std::make_pair(sequence, Account(sequence, deposit * 0.95)));
     this->liquidity += deposit * 0.05;
