@@ -1,4 +1,5 @@
-#include "DivideAndRule.hpp"
+#include "Bank.hpp"
+#include "Account.hpp"
 
 int main(void) {
     Account accountA = Account();

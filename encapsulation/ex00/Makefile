@@ -2,10 +2,12 @@ NAME    = ex.exe
 
 CC      = clang++
 CFLAGS  = -g3 -Wall -Wextra -Werror -std=c++98 -pedantic -MMD -MP
-SRC     = DivideAndRule.cpp \
+SRC     = Bank.cpp \
+          Account.cpp \
           main.cpp \
 
-INC     = DivideAndRule.hpp \
+INC     = Bank.hpp \
+          Account.hpp \
 
 INCPATH = -I./src
 OBJDIR  = obj
