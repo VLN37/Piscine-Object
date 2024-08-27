@@ -9,9 +9,9 @@ Account::Account(int id) : id(id), value(0) {}
 
 Account::Account(int id, float first_deposit) : id(id), value(first_deposit) {}
 
-float Account::get_value() const { return this->value; }
+float const& Account::get_value() const { return this->value; }
 
-int Account::get_id() const { return this->id; }
+int const& Account::get_id() const { return this->id; }
 
 std::ostream& operator<<(std::ostream& o, const Account& acc) {
     o << "[" << acc.id << "] - [" << acc.value << "]";

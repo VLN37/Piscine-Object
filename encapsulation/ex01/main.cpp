@@ -1,7 +1,5 @@
 #include <unistd.h>
 
-#include <algorithm>
-
 #include "Graph.hpp"
 #include "Vector2.hpp"
 
@@ -28,8 +26,6 @@ void simple_graph() {
     graph.add_point(1, 1);
     graph.add_point(Vector2(0, 0));
 
-    std::sort(graph.points.begin(), graph.points.end());
-    std::for_each(graph.points.begin(), graph.points.end(), out<Vector2>);
     std::cout << graph;
     std::cout << std::endl;
 }

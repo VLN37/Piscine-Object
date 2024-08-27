@@ -10,19 +10,13 @@ Graph::Graph(std::string filename) : size(0), height(0), length(0) {
     float             y;
 
     while (std::getline(file, line)) {
-        std::cout << "line: " << line << "\n";
         int space = line.find(' ');
-        std::cout << "|" << line.substr(0, space) << "|\n";
         ss << line.substr(0, space);
         ss >> x;
         ss.clear();
-        ss.str("");
-        std::cout << "|" << line.substr(space + 1) << "|\n";
         ss << line.substr(space + 1);
         ss >> y;
         ss.clear();
-        ss.str("");
-        std::cout << "x: " << x << " y: " << y << "\n";
         this->add_point(x, y);
     }
     std::cout << std::endl;
@@ -34,8 +28,8 @@ void Graph::add_point(float x, float y) {
 }
 
 void Graph::add_point(Vector2 const& point) {
-    this->update_size(point.x, point.y);
-    this->points.push_back(point);
+    this->update_size(point.get_x(), point.get_y());
+    this->points.push_back(Vector2(point));
 }
 
 void Graph::update_size(float x, float y) {
@@ -62,7 +56,7 @@ std::ostream& operator<<(std::ostream& o, Graph const& graph) {
     // fill the points
     std::vector<Vector2>::const_iterator it2;
     for (it2 = graph.points.begin(); it2 != graph.points.end(); ++it2)
-        matrix[it2->x][(it2->y * 2) + 1] = 'x';
+        matrix[it2->get_x()][(it2->get_y() * 2) + 1] = 'x';
 
     // output
     std::reverse(matrix.begin(), matrix.end());

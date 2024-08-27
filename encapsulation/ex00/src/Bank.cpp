@@ -4,7 +4,9 @@
 
 #include "Account.hpp"
 
-Bank::Bank() : liquidity(0), sequence(0) {}
+Bank::AccountId Bank::sequence = 0;
+
+Bank::Bank() : liquidity(0) {}
 
 Bank::AccountId Bank::create_account() {
     ++this->sequence;
@@ -46,7 +48,7 @@ float Bank::loan(float value) {
     return value;
 }
 
-float Bank::audit_liquidity() const { return this->liquidity; }
+float const& Bank::audit_liquidity() const { return this->liquidity; }
 
 Account& Bank::get_account(Bank::AccountId id) {
     AccountMap::iterator it = this->accounts.find(id);

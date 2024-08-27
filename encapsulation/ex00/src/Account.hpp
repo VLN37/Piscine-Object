@@ -4,15 +4,14 @@
 
 class Account {
  public:
-    float get_value() const;
-    int   get_id() const;
+    float const& get_value() const;
+    int const&   get_id() const;
 
  private:
-    Account();
-
     int   id;
     float value;
 
+    Account();
     explicit Account(int id);
     Account(int id, float first_deposit);
 

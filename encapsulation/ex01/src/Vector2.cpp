@@ -6,6 +6,10 @@ Vector2::Vector2(float x, float y) : x(x), y(y) {}
 
 Vector2::Vector2(Vector2 const& other) : x(other.x), y(other.y) {}
 
+float Vector2::get_x() const { return this->x; }
+
+float Vector2::get_y() const { return this->y; }
+
 bool Vector2::operator<(Vector2 const& rhs) const {
     return this->y < rhs.y || this->x < rhs.x;
 }
