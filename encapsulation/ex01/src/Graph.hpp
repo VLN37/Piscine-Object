@@ -1,7 +1,12 @@
 #pragma once
 
+#include <unistd.h>
+
 #include <algorithm>
+#include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -10,6 +15,7 @@
 class Graph {
  public:
     Graph();
+    explicit Graph(std::string filepath);
 
     void add_point(float x, float y);
     void add_point(Vector2 const& point);

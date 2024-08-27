@@ -2,6 +2,32 @@
 
 Graph::Graph() : size(0), height(0), length(0) {}
 
+Graph::Graph(std::string filename) : size(0), height(0), length(0) {
+    std::ifstream     file(filename.c_str());
+    std::stringstream ss;
+    std::string       line;
+    float             x;
+    float             y;
+
+    while (std::getline(file, line)) {
+        std::cout << "line: " << line << "\n";
+        int space = line.find(' ');
+        std::cout << "|" << line.substr(0, space) << "|\n";
+        ss << line.substr(0, space);
+        ss >> x;
+        ss.clear();
+        ss.str("");
+        std::cout << "|" << line.substr(space + 1) << "|\n";
+        ss << line.substr(space + 1);
+        ss >> y;
+        ss.clear();
+        ss.str("");
+        std::cout << "x: " << x << " y: " << y << "\n";
+        this->add_point(x, y);
+    }
+    std::cout << std::endl;
+}
+
 void Graph::add_point(float x, float y) {
     this->update_size(x, y);
     this->points.push_back(Vector2(x, y));
@@ -25,7 +51,7 @@ std::ostream& operator<<(std::ostream& o, Graph const& graph) {
     }
     o << "Graph size: " << graph.size << std::endl;
     std::vector<std::string> matrix;
-    matrix.resize(graph.height);
+    matrix.resize(graph.length);
 
     // empty the matrix
     std::vector<std::string>::iterator it;
@@ -41,10 +67,10 @@ std::ostream& operator<<(std::ostream& o, Graph const& graph) {
     // output
     std::reverse(matrix.begin(), matrix.end());
     for (size_t i = 0; i < matrix.size(); ++i) {
-        o << ">& " << matrix.size() - i - 1 << matrix[i] << std::endl;
+        o << ">& " << std::setw(3) << matrix.size() - i - 1 << matrix[i] << std::endl;
     }
-    o << ">&  ";
-    for (size_t i = 0; i < matrix.size(); ++i) o << " " << i;
+    o << ">&    ";
+    for (size_t i = 0; i < graph.length; ++i) o << " " << i;
     o << std::endl;
     return o;
 }
