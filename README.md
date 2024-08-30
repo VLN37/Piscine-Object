@@ -20,3 +20,67 @@ chmod a+x cli.py
 #  create your first module with this example
 ./cli.py create encapsulation ex00
 ```
+
+### UML
+
+```mermaid
+
+classDiagram
+direction TB
+Worker *-- Position: composition
+Worker *-- Statistic: composition
+
+class Position {
+    +int x
+    +int y
+    +int z
+}
+
+class Statistic {
+    +int level
+    +int exp
+}
+
+Workshop <-- Tool: association
+Tool <--> "1" Worker: association
+
+class Worker {
+    %%composition
+    +Position pos
+    %%composition
+    +Statistic stat
+    %%aggregation
+    +Tool tool
+
+    +work()
+    +GetTool~Tool~()
+}
+
+
+Tool<|--Hammer: inheritance
+Tool<|--Shovel: inheritance
+
+class Tool {
+    <<abstract>>
+    +use()
+}
+
+%%inheritance
+class Shovel {
+    +size_t numberOfUses
+}
+
+%%inheritance
+class Hammer {
+    +size_t numberOfUses
+}
+
+Workshop o-- Worker: aggregation
+%%association
+class Workshop {
+    -multimap~Worker, Workshop~ workshopmap$
+    -vector~Workers~ workers
+
+    +executeWorkDay()
+}
+```
