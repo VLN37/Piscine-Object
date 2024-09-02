@@ -16,11 +16,11 @@ class ATool {
         _refCount.erase(this->id);
     }
 
-    virtual void use() = 0;
+    virtual void    use() = 0;
+    bool            is_broken() const { return numberOfUses == 0; }
+    ToolType const& get_type() const { return type; }
 
     static void debug() { std::cout << _refCount.size() << "\n"; }
-
-    bool is_broken() { return numberOfUses == 0; }
 
  protected:
     int      numberOfUses;
