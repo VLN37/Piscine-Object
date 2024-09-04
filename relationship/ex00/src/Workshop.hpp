@@ -17,8 +17,8 @@ class Workshop {
     void unregister(Worker *worker) { remove_relation(this, worker); }
     void execute_work() { _execute_work(this); }
 
-    static std::set<Workshop const *> find_workshops(Worker *worker) {
-        std::set<Workshop const *> res;
+    static std::set<const Workshop *> find_workshops(Worker *worker) {
+        std::set<const Workshop *> res;
         worker_map_iterator        it;
 
         for (it = employees.begin(); it != employees.end(); ++it)
@@ -60,7 +60,7 @@ class Workshop {
         }
     }
 
-    friend std::ostream &operator<<(std::ostream &o, Workshop const &rhs) {
+    friend std::ostream &operator<<(std::ostream &o, const Workshop &rhs) {
         (void)rhs;
         return o << "workshop ptr at " << "PLACEHOLDER NAME" << "\n";
     }

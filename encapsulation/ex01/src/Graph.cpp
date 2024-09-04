@@ -27,7 +27,7 @@ void Graph::add_point(float x, float y) {
     this->points.push_back(Vector2(x, y));
 }
 
-void Graph::add_point(Vector2 const& point) {
+void Graph::add_point(const Vector2 &point) {
     this->update_size(point.get_x(), point.get_y());
     this->points.push_back(Vector2(point));
 }
@@ -38,7 +38,7 @@ void Graph::update_size(float x, float y) {
     this->size = this->height * this->length;
 }
 
-std::ostream& operator<<(std::ostream& o, Graph const& graph) {
+std::ostream &operator<<(std::ostream &o, const Graph &graph) {
     if (graph.points.size() == 0) {
         o << "Empty graph.\n";
         return o;

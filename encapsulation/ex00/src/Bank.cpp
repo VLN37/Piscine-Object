@@ -22,21 +22,21 @@ Bank::AccountId Bank::create_account(float deposit) {
 }
 
 void Bank::delete_account(AccountId id) {
-    Account& acc = this->get_account(id);
+    Account &acc = this->get_account(id);
     // all your base are belong to us
     this->liquidity += acc.value;
     this->accounts.erase(id);
 }
 
 float Bank::withdraw(AccountId id, float value) {
-    Account& acc = this->get_account(id);
+    Account &acc = this->get_account(id);
     if (acc.value < value) Bank::Exception(BANK_BALANCE_INSUFFICIENT);
     acc.value -= value;
     return value;
 }
 
 void Bank::deposit(AccountId id, float value) {
-    Account& acc = this->get_account(id);
+    Account &acc = this->get_account(id);
     this->liquidity += value * 0.05;
     acc.value += value * 0.95;
 }
@@ -48,23 +48,23 @@ float Bank::loan(float value) {
     return value;
 }
 
-float const& Bank::audit_liquidity() const { return this->liquidity; }
+const float &Bank::audit_liquidity() const { return this->liquidity; }
 
-Account const& Bank::get_account(Bank::AccountId id) const {
+const Account &Bank::get_account(Bank::AccountId id) const {
     AccountMap::const_iterator it = this->accounts.find(id);
     if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
     return it->second;
 }
 
-Account& Bank::get_account(Bank::AccountId id) {
+Account &Bank::get_account(Bank::AccountId id) {
     AccountMap::iterator it = this->accounts.find(id);
     if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
     return it->second;
 }
 
-Account const& Bank::operator[](int idx) const { return this->get_account(idx); }
+const Account &Bank::operator[](int idx) const { return this->get_account(idx); }
 
-std::ostream& operator<<(std::ostream& o, const Bank& bank) {
+std::ostream &operator<<(std::ostream &o, const Bank &bank) {
     o << "Bank informations : " << std::endl;
     o << "Liquidity : " << bank.liquidity << std::endl;
     Bank::AccountMap::const_iterator it;
@@ -73,6 +73,6 @@ std::ostream& operator<<(std::ostream& o, const Bank& bank) {
     return o;
 }
 
-Bank::Exception::Exception(const char* msg) : msg(msg) {}
+Bank::Exception::Exception(const char *msg) : msg(msg) {}
 
-const char* Bank::Exception::what(void) const throw() { return this->msg; }
+const char *Bank::Exception::what(void) const throw() { return this->msg; }

@@ -18,7 +18,7 @@ class ATool {
 
     virtual void    use() = 0;
     bool            is_broken() const { return numberOfUses == 0; }
-    ToolType const& get_type() const { return type; }
+    const ToolType &get_type() const { return type; }
 
     static void debug() { std::cout << _refCount.size() << "\n"; }
 
@@ -30,13 +30,13 @@ class ATool {
     static int sequence;
     int        id;
 
-    static std::map<int, ATool*> _refCount;
-    friend std::ostream&         operator<<(std::ostream& o, ATool const& rhs) {
+    static std::map<int, ATool *> _refCount;
+    friend std::ostream          &operator<<(std::ostream &o, const ATool &rhs) {
         return rhs.output(o);
     }
 
-    virtual std::ostream& output(std::ostream& o) const = 0;
+    virtual std::ostream &output(std::ostream &o) const = 0;
 };
 
-int                   ATool::sequence  = 0;
-std::map<int, ATool*> ATool::_refCount = std::map<int, ATool*>();
+int                    ATool::sequence  = 0;
+std::map<int, ATool *> ATool::_refCount = std::map<int, ATool *>();

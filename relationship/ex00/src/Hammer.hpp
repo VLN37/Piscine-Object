@@ -20,7 +20,7 @@ class Hammer : public ATool {
     }
 
  private:
-    virtual std::ostream& output(std::ostream& o) const {
+    virtual std::ostream &output(std::ostream &o) const {
         return o << "[Hammer] Number of uses: " << numberOfUses << "\n";
     }
 };

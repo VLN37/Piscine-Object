@@ -22,22 +22,22 @@ class Bank {
     float        withdraw(AccountId id, float value);
     void         deposit(AccountId id, float value);
     float        loan(float value);
-    float const& audit_liquidity() const;
+    const float &audit_liquidity() const;
 
     class Exception : public std::exception {
      public:
-        virtual const char* what() const throw();
+        virtual const char *what() const throw();
 
      private:
-        const char* msg;
+        const char *msg;
 
         Exception();
-        explicit Exception(const char* msg);
+        explicit Exception(const char *msg);
 
         friend class Bank;
     };
 
-    Account const& operator[](int idx) const;
+    const Account &operator[](int idx) const;
 
  private:
     typedef std::map<AccountId, Account> AccountMap;
@@ -46,7 +46,7 @@ class Bank {
     AccountMap       accounts;
     static AccountId sequence;
 
-    Account const&       get_account(AccountId id) const;
-    Account&             get_account(AccountId id);
-    friend std::ostream& operator<<(std::ostream& o, Bank const& bank);
+    const Account       &get_account(AccountId id) const;
+    Account             &get_account(AccountId id);
+    friend std::ostream &operator<<(std::ostream &o, const Bank &bank);
 };

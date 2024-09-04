@@ -9,7 +9,7 @@ class Position {
     int y;
     int z;
 
-    friend std::ostream& operator<<(std::ostream& o, Position const& rhs) {
+    friend std::ostream &operator<<(std::ostream &o, const Position &rhs) {
         return o << "[Position] - x: " << rhs.x << " y: " << rhs.y << " z: " << rhs.z
                  << "\n";
     }

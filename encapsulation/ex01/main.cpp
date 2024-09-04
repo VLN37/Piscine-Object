@@ -4,7 +4,7 @@
 #include "Vector2.hpp"
 
 template <typename T>
-void out(T const& obj) {
+void out(const T &obj) {
     std::cout << obj;
 }
 

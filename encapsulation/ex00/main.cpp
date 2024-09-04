@@ -25,21 +25,21 @@ int main(void) {
     try {
         bank.delete_account(1);
         assert(EXPECTS_THROW == true);
-    } catch (Bank::Exception& e) {
+    } catch (Bank::Exception &e) {
         assert(strcmp(e.what(), BANK_ACCOUNT_NOT_FOUND) == 0);
     }
 
     try {
         bank.withdraw(3, 50);
         assert(EXPECTS_THROW == true);
-    } catch (Bank::Exception& e) {
+    } catch (Bank::Exception &e) {
         assert(strcmp(e.what(), BANK_ACCOUNT_NOT_FOUND) == 0);
     }
 
     try {
         bank.loan(5);
         assert(EXPECTS_THROW == true);
-    } catch (Bank::Exception& e) {
+    } catch (Bank::Exception &e) {
         assert(strcmp(e.what(), BANK_LIQUIDITY) == 0);
     }
 

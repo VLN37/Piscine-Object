@@ -16,7 +16,7 @@ class Graph {
     explicit Graph(std::string filepath);
 
     void add_point(float x, float y);
-    void add_point(Vector2 const& point);
+    void add_point(const Vector2 &point);
 
  private:
     std::size_t          size;
@@ -26,5 +26,5 @@ class Graph {
 
     void update_size(float x, float y);
 
-    friend std::ostream& operator<<(std::ostream& o, const Graph& graph);
+    friend std::ostream &operator<<(std::ostream &o, const Graph &graph);
 };

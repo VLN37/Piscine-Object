@@ -9,7 +9,7 @@ class Statistic {
     int level;
     int exp;
 
-    friend std::ostream& operator<<(std::ostream& o, Statistic const& rhs) {
+    friend std::ostream& operator<<(std::ostream& o, const Statistic& rhs) {
         return o << "[Stats] - " << "Level: " << rhs.level << " Exp: " << rhs.exp
                  << "\n";
     }

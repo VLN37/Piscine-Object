@@ -12,4 +12,7 @@ IncludeBlocks: Regroup
 IndentAccessModifiers: false
 PackConstructorInitializers: NextLine
 AlignConsecutiveTableGenBreakingDAGArgColons: Consecutive
+DerivePointerAlignment: false
+PointerAlignment: Right
+QualifierAlignment: Left
 # InsertTrailingCommas: Wrapped
