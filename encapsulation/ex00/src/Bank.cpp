@@ -50,13 +50,19 @@ float Bank::loan(float value) {
 
 float const& Bank::audit_liquidity() const { return this->liquidity; }
 
+Account const& Bank::get_account(Bank::AccountId id) const {
+    AccountMap::const_iterator it = this->accounts.find(id);
+    if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
+    return it->second;
+}
+
 Account& Bank::get_account(Bank::AccountId id) {
     AccountMap::iterator it = this->accounts.find(id);
     if (it == this->accounts.end()) throw Bank::Exception(BANK_ACCOUNT_NOT_FOUND);
     return it->second;
 }
 
-Account const& Bank::operator[](int idx) { return this->get_account(idx); }
+Account const& Bank::operator[](int idx) const { return this->get_account(idx); }
 
 std::ostream& operator<<(std::ostream& o, const Bank& bank) {
     o << "Bank informations : " << std::endl;

@@ -37,7 +37,7 @@ class Bank {
         friend class Bank;
     };
 
-    Account const& operator[](int idx);
+    Account const& operator[](int idx) const;
 
  private:
     typedef std::map<AccountId, Account> AccountMap;
@@ -46,6 +46,7 @@ class Bank {
     AccountMap       accounts;
     static AccountId sequence;
 
+    Account const&       get_account(AccountId id) const;
     Account&             get_account(AccountId id);
-    friend std::ostream& operator<<(std::ostream& o, const Bank& bank);
+    friend std::ostream& operator<<(std::ostream& o, Bank const& bank);
 };
