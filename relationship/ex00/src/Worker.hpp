@@ -3,11 +3,14 @@
 #include <iomanip>
 #include <iostream>
 #include <map>
+#include <set>
 #include <utility>
 
 #include "Position.hpp"
 #include "Shovel.hpp"
 #include "Statistic.hpp"
+
+class Workshop;
 
 class Worker {
  public:
@@ -39,6 +42,16 @@ class Worker {
         return o << "[Worker]\n"
                  << "    pos: " << rhs.pos << "    stats: " << rhs.stats << std::left
                  << std::setw(4) << "    tools: " << rhs.tools.size() << "\n";
+    }
+
+    friend std::ostream& operator<<(std::ostream& o, Worker* rhs) {
+        return o << "[Worker]\n"
+                 << "    pos: " << rhs->pos << "    stats: " << rhs->stats << std::left
+                 << std::setw(4) << "    tools: " << rhs->tools.size() << "\n";
+    }
+
+    void work(Workshop* shop) {
+        std::cout << "Working at workshop... " << shop << "\n";
     }
 
  private:
