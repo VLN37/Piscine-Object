@@ -2,15 +2,20 @@
 
 #include <iostream>
 
-class Statistic {
+class Stats {
  public:
-    Statistic() : level(0), exp(0) {}
+    Stats() : level(0), exp(0) {}
 
+    const int &get_level() const { return level; }
+    const int &get_exp() const { return exp; }
+
+ private:
     int level;
     int exp;
 
-    friend std::ostream& operator<<(std::ostream& o, const Statistic& rhs) {
-        return o << "[Stats] - " << "Level: " << rhs.level << " Exp: " << rhs.exp
-                 << "\n";
+    friend std::ostream &operator<<(std::ostream &o, const Stats &rhs) {
+        return o << "[Stats] - Level: " << rhs.level << " Exp: " << rhs.exp << "\n";
     }
+
+    friend class Worker;
 };

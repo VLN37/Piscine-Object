@@ -18,9 +18,4 @@ class Shovel : public ATool {
         --numberOfUses;
         std::cout << "Using shovel\n";
     }
-
- private:
-    virtual std::ostream& output(std::ostream& o) const {
-        return o << "[Shovel] Number of uses: " << numberOfUses << "\n";
-    }
 };

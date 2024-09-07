@@ -3,17 +3,29 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <string>
 #include <utility>
 
 #include "Worker.hpp"
+#include "utils.hpp"
 
-enum WorkshopType { CEMETERY, QUARRY };
+enum WorkshopType { GRAVEYARD, QUARRY };
 
 class Workshop {
  public:
-    Workshop() {}
+    std::string  name;
+    WorkshopType type;
 
-    void register_worker(Worker *worker) { add_relation(this, worker); }
+    Workshop(std::string name, WorkshopType t) : name(name), type(t) { ++id; }
+    explicit Workshop(WorkshopType t)
+        : name(std::string(type_label(t)) + itoa(++id)), type(t) {}
+
+    void register_worker(Worker *worker) {
+        const char *msg = "Worker does not have the required tool";
+        if (!worker->has_tool(required_tool())) throw std::invalid_argument(msg);
+        add_relation(this, worker);
+    }
+
     void unregister(Worker *worker) { remove_relation(this, worker); }
     void execute_work() { _execute_work(this); }
 
@@ -33,21 +45,44 @@ class Workshop {
     typedef std::pair<worker_map_iterator, worker_map_iterator> iterator_pair;
 
     static WorkerMap employees;
+    static int       id;
+
+    Workshop();
+
+    ToolType required_tool() {
+        switch (type) {
+            case GRAVEYARD:
+                return SHOVEL;
+            case QUARRY:
+                return HAMMER;
+        }
+    }
+
+    const char *type_label() const { return type_label(this->type); }
+
+    const char *type_label(WorkshopType t) const {
+        switch (t) {
+            case QUARRY:
+                return "quarry";
+            case GRAVEYARD:
+                return "graveyard";
+        }
+    }
 
     static void add_relation(Workshop *shop, Worker *worker) {
+        // std::cout << "add workshop relation" << shop << " " << worker << "\n";
         employees.insert(std::make_pair(shop, worker));
     }
 
     static void remove_relation(Workshop *shop, Worker *worker) {
+        // std::cout << "rem workshop relation" << shop << " " << worker << "\n";
         iterator_pair       pair = employees.equal_range(shop);
         worker_map_iterator it   = pair.first;
         worker_map_iterator ite  = pair.second;
 
-        std::cout << "[[remove employee]]\n";
         for (; it != ite; ++it) {
-            std::cout << "first: " << it->first << " second: " << it->second << "\n";
             if (it->second == worker) {
-                std::cout << "worker found\n";
+                std::cout << it->second << " removed from " << it->first << "\n";
                 employees.erase(it);
             }
         }
@@ -55,20 +90,30 @@ class Workshop {
 
     static void _execute_work(Workshop *shop) {
         worker_map_iterator it;
+
         for (it = employees.find(shop); it != employees.end(); ++it) {
             it->second->work(shop);
         }
     }
 
     friend std::ostream &operator<<(std::ostream &o, const Workshop &rhs) {
-        (void)rhs;
-        return o << "workshop ptr at " << "PLACEHOLDER NAME" << "\n";
+        return o << rhs.name << " " << rhs.type_label();
     }
 
     friend std::ostream &operator<<(std::ostream &o, Workshop *rhs) {
-        (void)rhs;
-        return o << "workshop ptr at " << "PLACEHOLDER NAME" << "\n";
+        return o << rhs->name << " " << rhs->type_label();
+    }
+
+    static void debug_employees() {
+        worker_map_iterator it = employees.begin();
+
+        std::cout << "[[debug]]\n";
+        for (it = employees.begin(); it != employees.end(); ++it) {
+            std::cout << it->first << " " << it->second << "\n";
+        }
+        std::cout << "[[end debug]]\n";
     }
 };
 
 Workshop::WorkerMap Workshop::employees = Workshop::WorkerMap();
+int                 Workshop::id        = 0;

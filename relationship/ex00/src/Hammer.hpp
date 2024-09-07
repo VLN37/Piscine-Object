@@ -18,9 +18,4 @@ class Hammer : public ATool {
         --numberOfUses;
         std::cout << "Using shovel\n";
     }
-
- private:
-    virtual std::ostream &output(std::ostream &o) const {
-        return o << "[Hammer] Number of uses: " << numberOfUses << "\n";
-    }
 };

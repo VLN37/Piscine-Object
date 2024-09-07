@@ -11,6 +11,7 @@ INC     = Position.hpp \
 		  Shovel.hpp \
 		  Hammer.hpp \
 		  Workshop.hpp \
+		  Utils.hpp \
 
 INCPATH = -I./src
 

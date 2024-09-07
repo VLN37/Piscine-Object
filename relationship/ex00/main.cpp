@@ -6,36 +6,61 @@
 #include "Workshop.hpp"
 
 int main(void) {
-    std::cout << "Hello world\n";
-    Worker   worker1;
-    Worker   worker2;
-    Workshop workshop1;
-    Workshop workshop2;
+    Worker   bob("Bob");
+    Worker   bro("Bro");
+    Workshop grave("Consolation", GRAVEYARD);
+    Workshop quarry("Stones", QUARRY);
+    ATool   *shovel       = new Shovel;
+    ATool   *hammer       = new Hammer;
+    ATool   *spare_shovel = new Shovel;
+    ATool   *spare_hammer = new Hammer;
 
-    workshop1.register_worker(&worker1);
-    workshop1.register_worker(&worker2);
-    workshop2.register_worker(&worker2);
+    bob.equip(shovel);
+    bob.equip(hammer);
+    bro.equip(spare_hammer);
+    bro.equip(spare_shovel);
 
-    workshop1.unregister(&worker1);
-    worker2.work(&workshop2);
+    std::cout << bob << std::endl;
+    std::cout << bro << std::endl;
+    std::cout << "[[tool drop]]\n";
+    bro.equip(shovel);
+    try {
+        grave.register_worker(&bob);
+    } catch (std::invalid_argument &e) {
+        std::cout << "Handling error: " << e.what() << std::endl;
+    }
 
-    workshop2.execute_work();
+    std::cout << "[[re equip]]\n";
+    bob.equip(shovel);
+    bro.equip(spare_shovel);
 
-    std::cout << worker1 << "\n";
-    ATool *shovel = new Shovel;
-    ATool *hammer = new Hammer;
-    std::cout << *shovel;
-    std::cout << *hammer;
+    std::cout << bob << std::endl;
+    std::cout << bro << std::endl;
+    std::cout << *shovel << std::endl;
+    std::cout << *hammer << std::endl;
+    std::cout << grave << std::endl;
+    std::cout << quarry << std::endl;
 
-    worker1.equip(shovel);
-    std::cout << worker1;
-    std::cout << worker2;
-    worker2.equip(shovel);
-    std::cout << worker1;
-    std::cout << worker2;
+    quarry.register_worker(&bro);
+    quarry.register_worker(&bob);
+    grave.register_worker(&bro);
+    grave.register_worker(&bob);
+
+    std::cout << "[[remove employee]]\n";
+    grave.unregister(&bob);
+    std::cout << "[[Worker works]]\n";
+    bro.work(&quarry);
+    bro.work(&grave);
+    bob.work(&quarry);
+
+    std::cout << "[[Workshop works]]\n";
+    grave.execute_work();
+
+    std::cout << "[[tool equip]]\n";
 
     ATool::debug();
     delete shovel;
     delete hammer;
+    delete spare_hammer;
     ATool::debug();
 }
