@@ -11,7 +11,7 @@ float Vector2::get_x() const { return this->x; }
 float Vector2::get_y() const { return this->y; }
 
 bool Vector2::operator<(const Vector2 &rhs) const {
-    return this->y < rhs.y || this->x < rhs.x;
+    return y < rhs.y || (y == rhs.y && x > rhs.x);
 }
 
 std::ostream &operator<<(std::ostream &o, const Vector2 &point) {
