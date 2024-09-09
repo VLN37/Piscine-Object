@@ -27,55 +27,60 @@ chmod a+x cli.py
 
 classDiagram
 direction TB
+Hammer <|-- Tool : inheritance
+Shovel <|-- Tool : inheritance
 Worker *-- Position: composition
 Worker *-- Statistic: composition
 
+
+Workshop "1" o-- "n" Worker : aggregation
+
 class Position {
-    +int x
-    +int y
-    +int z
+    -int x
+    -int y
+    -int z
 }
 
 class Statistic {
-    +int level
-    +int exp
+    -int level
+    -int exp
 }
 
-Workshop <-- Tool: association
-Tool <--> "1" Worker: association
+
+Tool <-- Worker: association
 
 class Worker {
     %%composition
-    +Position pos
+    -Position pos
     %%composition
-    +Statistic stat
+    -Statistic stat
     %%aggregation
-    +Tool tool
+    -Tool tool
 
     +work()
     +GetTool~Tool~()
 }
 
 
-Tool<|--Hammer: inheritance
-Tool<|--Shovel: inheritance
 
 class Tool {
     <<abstract>>
+    -size_t numberOfUses
+
     +use()
 }
 
 %%inheritance
 class Shovel {
-    +size_t numberOfUses
+    +use()
 }
 
 %%inheritance
 class Hammer {
-    +size_t numberOfUses
+    +use()
 }
 
-Workshop o-- Worker: aggregation
+
 %%association
 class Workshop {
     -multimap~Worker, Workshop~ workshopmap$
