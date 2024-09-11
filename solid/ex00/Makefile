@@ -9,6 +9,10 @@ INC     = car.hpp \
           Gear.hpp \
           Pedal.hpp \
           ALinkablePart.hpp \
+          Injector.hpp \
+          ExplosionChamber.hpp \
+          Crankshaft.hpp \
+          Motor.hpp \
 
 INCPATH = -I./src -I./src/cockpit -I./src/interfaces -I./src/motor -I./src/parts
 

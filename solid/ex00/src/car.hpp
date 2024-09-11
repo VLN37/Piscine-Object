@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cockpit.hpp"
+#include "Motor.hpp"
 
 class Car {
  public:
