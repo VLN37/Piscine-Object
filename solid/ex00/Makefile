@@ -2,16 +2,22 @@ NAME    = ex.exe
 
 CC      = clang++
 CFLAGS  = -g3 -Wall -Wextra -Werror -std=c++98 -pedantic -MMD -MP
-SRC     = main.cpp
-INC     =
-INCPATH = -I./src
+SRC     = main.cpp \
+
+INC     = car.hpp \
+          GearLever.hpp \
+          Gear.hpp \
+          Pedal.hpp \
+          ALinkablePart.hpp \
+
+INCPATH = -I./src -I./src/cockpit -I./src/interfaces -I./src/motor -I./src/parts
 
 OBJDIR  = obj
 OBJ     = $(SRC:%.cpp=$(OBJDIR)/%.o)
 DEPS    = $(SRC:%.cpp=$(OBJDIR)/%.d)
 
 vpath %.cpp src
-vpath %.hpp src
+vpath %.hpp src src/cockpit src/interfaces src/motor src/parts
 
 all: $(NAME)
 

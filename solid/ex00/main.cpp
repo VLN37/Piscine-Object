@@ -1,3 +1,5 @@
 #include <iostream>
 
-int main(void) { std::cout << "Hello world\n"; }
+#include "car.hpp"
+
+int main(void) { Car car; }
