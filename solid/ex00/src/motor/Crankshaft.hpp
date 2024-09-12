@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-class Transmission;
+#include "Transmission.hpp"
 
 class Crankshaft {
  public:
     void receiveForce(float p_volume) {
         std::cout << "Receiving " << p_volume << " amount of force\n";
-        std::cout << transmission << "\n";
+        transmission->activate(p_volume);
     }
 
  private:

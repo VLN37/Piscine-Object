@@ -1,7 +1,10 @@
 #pragma once
 
+#include "BrakeController.hpp"
 #include "Cockpit.hpp"
+#include "Electronics.hpp"
 #include "Motor.hpp"
+#include "Transmission.hpp"
 
 class Car {
  public:
@@ -16,6 +19,9 @@ class Car {
     void apply_force_on_breaks() {}
     void apply_emergency_breaks() {}
 
- private:
-    Cockpit cockpit;
+    BrakeController brakes;
+    Transmission    transmission;
+    Electronics     electronics;
+    Cockpit         cockpit;
+    Motor           motor;
 };
