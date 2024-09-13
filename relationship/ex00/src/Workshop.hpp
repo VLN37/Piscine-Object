@@ -26,7 +26,7 @@ class Workshop {
         add_relation(this, worker);
     }
 
-    void unregister(Worker *worker) { remove_relation(this, worker); }
+    void unregister_worker(Worker *worker) { remove_relation(this, worker); }
     void execute_work() { _execute_work(this); }
 
     static std::set<const Workshop *> find_workshops(Worker *worker) {
@@ -83,15 +83,17 @@ class Workshop {
         for (; it != ite; ++it) {
             if (it->second == worker) {
                 std::cout << it->second << " removed from " << it->first << "\n";
-                employees.erase(it);
+                return employees.erase(it);
             }
         }
     }
 
     static void _execute_work(Workshop *shop) {
-        worker_map_iterator it;
+        iterator_pair       pair = employees.equal_range(shop);
+        worker_map_iterator it   = pair.first;
+        worker_map_iterator ite  = pair.second;
 
-        for (it = employees.find(shop); it != employees.end(); ++it) {
+        for (it = employees.find(shop); it != ite; ++it) {
             it->second->work(shop);
         }
     }

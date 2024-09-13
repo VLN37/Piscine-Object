@@ -35,7 +35,6 @@ class Worker {
         if (it != tools.end()) {
             std::cout << "should drop previous tool\n";
             unequip(it->second);
-            remove_relation(it->second);
         }
 
         tools.insert(std::make_pair(tool->get_type(), tool));
