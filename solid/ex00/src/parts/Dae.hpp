@@ -4,7 +4,14 @@
 
 class Dae {
  public:
-    void  use(float p_angle) { std::cout << "Using DAE at " << p_angle << " angle\n"; }
-    float force;
+    explicit Dae(Direction *direction) : direction(direction) {}
+    void use(float p_angle) {
+        std::cout << "Using DAE at " << p_angle << " angle\n";
+        direction->turn(p_angle);
+    }
+    const float &getForce() { return force; }
+
+ private:
+    float      force;
     Direction *direction;
 };

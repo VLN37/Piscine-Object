@@ -7,6 +7,9 @@
 
 class GearLever {
  public:
+    GearLever() { gears.resize(6); }
+    explicit GearLever(int max_gears) { gears.resize(max_gears); }
+
     void  change() { std::cout << "Changing gear\n"; }
     Gear *activeGear() { return &gears.front(); }
 

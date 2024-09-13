@@ -2,4 +2,4 @@
 
 #include "car.hpp"
 
-int main(void) { Car car; }
+int main(void) { Car car(4); }

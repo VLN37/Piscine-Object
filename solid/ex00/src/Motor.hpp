@@ -10,12 +10,19 @@ class Transmission;
 
 class Motor {
  public:
-    void connectToTransmission(Transmission *transmission) {
+    explicit Motor(Transmission *transmission)
+        : shaft(Crankshaft(transmission)),
+          chamber(ExplosionChamber(&shaft)),
+          injector(Injector(&chamber)) {}
+
+    ALinkablePart *getInjector() { return &injector; }
+    void           connectToTransmission(Transmission *transmission) {
         std::cout << "connecting to transmission " << transmission << "\n";
-        transmission->activate(0);
+        shaft.connectToTransmission(transmission);
     }
 
-    Injector         injector;
-    ExplosionChamber chamber;
+ private:
     Crankshaft       shaft;
+    ExplosionChamber chamber;
+    Injector         injector;
 };

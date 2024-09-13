@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "BrakeController.hpp"
 #include "Cockpit.hpp"
 #include "Electronics.hpp"
@@ -8,6 +10,21 @@
 
 class Car {
  public:
+    explicit Car(int wheel_qty)
+        : wheels(new std::vector<Wheel>()),
+          direction(wheels),
+          brakes(wheel_qty),
+          transmission(wheels),
+          electronics(&direction),
+          motor(&transmission),
+          cockpit(6) {
+        wheels->resize(wheel_qty);
+        cockpit.connectBrakes(brakes.getPart());
+        cockpit.connectInjector(motor.getInjector());
+        cockpit.connectDae(electronics.get_dae());
+    }
+    ~Car() { delete wheels; }
+
     void start() {}
     void stop() {}
     void accelerate() {}
@@ -19,9 +36,12 @@ class Car {
     void apply_force_on_breaks() {}
     void apply_emergency_breaks() {}
 
-    BrakeController brakes;
-    Transmission    transmission;
-    Electronics     electronics;
-    Cockpit         cockpit;
-    Motor           motor;
+ private:
+    std::vector<Wheel> *wheels;
+    Direction           direction;
+    BrakeController     brakes;
+    Transmission        transmission;
+    Electronics         electronics;
+    Motor               motor;
+    Cockpit             cockpit;
 };
