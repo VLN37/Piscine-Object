@@ -12,7 +12,7 @@ I made this python CLI that may help people doing the project.
 
 ```console
 # Download the attached asset
-wget https://github.com/VLN37/Piscine-Object/releases/download/v1.0.1/turbo_piscine.tar.gz
+wget https://github.com/VLN37/Piscine-Object/releases/download/v1.0.2/turbo_piscine.tar.gz
 # extract the files
 tar -xzf turbo_piscine.tar.gz
 # required permissions

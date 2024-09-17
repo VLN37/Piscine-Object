@@ -11,6 +11,9 @@ class Cockpit {
     void connectInjector(ALinkablePart *injector) { throttle.setTarget(injector); }
     void connectBrakes(ALinkablePart *brakes) { brake.setTarget(brakes); }
     void connectDae(Dae *dae) { steer_wheel.setDae(dae); }
+    void shift_gears_up() { lever++; }
+    void shift_gears_down() { lever--; }
+    void reverse_gear() { lever.change(0); }
 
  private:
     Cockpit() {}

@@ -27,6 +27,14 @@ class BrakeController : public ALinkablePart {
         }
     }
 
+    void rearBrake(float p_pression) {
+        size_t qty = brakes.size();
+        brakes.at(qty - 1).execute(p_pression);
+        if (qty > 1) brakes.at(qty - 2).execute(p_pression);
+    }
+
+    void emergency() { execute(1000); }
+
  private:
     BrakeController() {}
 
