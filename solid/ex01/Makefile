@@ -3,7 +3,10 @@ NAME    = ex.exe
 CC      = clang++
 CFLAGS  = -g3 -Wall -Wextra -Werror -std=c++98 -pedantic -MMD -MP
 SRC     = main.cpp
-INC     =
+INC     = command.hpp \
+          packageReductionDiscount.hpp \
+          thuesdayDiscount.hpp \
+
 INCPATH = -I./src
 
 OBJDIR  = obj
