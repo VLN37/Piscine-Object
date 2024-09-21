@@ -4,7 +4,8 @@ FOLDERS = boilerplate \
 		  relationship/ex00 \
 		  solid/ex00 \
 		  solid/ex01 \
-		  solid/ex02
+		  solid/ex02 \
+		  solid/ex03
 
 build:
 	@for folder in $(FOLDERS); do \
