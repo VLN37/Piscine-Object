@@ -37,6 +37,6 @@ $(OBJDIR):
 re: fclean all
 
 run: all
-	valgrind ./$(NAME)
+	./$(NAME)
 
 -include $(DEPS)

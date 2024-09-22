@@ -7,7 +7,14 @@
 
 class ContractEmployee : public Employee {
  public:
-    ContractEmployee() : contractStart(time(0)) {}
+    ContractEmployee() {
+        time_t now    = std::time(0);
+        tm    *time   = std::localtime(&now);
+        time->tm_hour = 0;
+        time->tm_min  = 0;
+        time->tm_sec  = 0;
+        contractStart = mktime(time);
+    }
     int  executeWorkday() { return 7; }
     void requestTimeOff(int hours) { timeOff.insert(std::make_pair(time(0), hours)); }
     int  billableHours(int month, int year) {

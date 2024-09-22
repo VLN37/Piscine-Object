@@ -29,12 +29,26 @@ class Employee {
         time.tm_mday = 1;
         time_t t     = mktime(&time);
 
-        time_t now = std::time(0);
-        std::localtime(&now);
+        time_t now   = std::time(0);
+        tm    *tmp   = std::localtime(&now);
+        tmp->tm_sec  = 0;
+        tmp->tm_min  = 0;
+        tmp->tm_hour = 0;
+        now          = mktime(tmp);
+        // std::cout << "now " << std::ctime(&now) << t << "\n";
         time_t tomorrow = now + (60 * 60 * 24);
-        int    qty      = 0;
+        // std::cout << "tomorrow " << std::ctime(&tomorrow) << t << "\n";
+        // std::cout << "start " << std::ctime(&start);
+        int qty = 0;
         while (time.tm_mon == month - 1) {
-            if (t >= start && t < tomorrow) ++qty;
+            // std::cout << std::ctime(&t);
+
+            // std::cout << (t >= start) << " " << (t < tomorrow) << "\n";
+            if (t >= start && t < tomorrow) {
+                // std::cout << "inc\n";
+                // std::cout << std::ctime(&t) << std::ctime(&tomorrow);
+                ++qty;
+            }
             time.tm_mday += 1;
             t = mktime(&time);
         }
