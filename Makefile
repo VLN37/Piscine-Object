@@ -5,7 +5,8 @@ FOLDERS = boilerplate \
 		  solid/ex00 \
 		  solid/ex01 \
 		  solid/ex02 \
-		  solid/ex03
+		  solid/ex03 \
+		  solid/ex04
 
 build:
 	@for folder in $(FOLDERS); do \
