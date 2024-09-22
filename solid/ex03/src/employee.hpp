@@ -5,6 +5,47 @@
 #include <iostream>
 #include <map>
 
+class DateUtil {
+ public:
+    tm     ref;
+    time_t start_of_month;
+    time_t end_of_month;
+    time_t today;
+    time_t tomorrow;
+
+    DateUtil(int month, int year) {
+        std::memset(&ref, 0, sizeof(tm));
+        ref.tm_year = year - 1900;
+        ref.tm_mon  = month - 1;
+        ref.tm_mday = 1;
+
+        tm backup;
+        memcpy(&backup, &ref, sizeof(tm));
+        start_of_month = mktime(&backup);
+        backup.tm_mon += 1;
+        end_of_month = mktime(&backup);
+
+        time_t now   = std::time(0);
+        tm    *tmp   = std::localtime(&now);
+        tmp->tm_min  = 0;
+        tmp->tm_sec  = 0;
+        tmp->tm_hour = 0;
+
+        today = mktime(tmp);
+        tmp->tm_mday += 1;
+        tomorrow = mktime(tmp);
+    }
+
+    static time_t today_date() {
+        time_t now = std::time(0);
+        tm    *t   = std::localtime(&now);
+        t->tm_hour = 0;
+        t->tm_min  = 0;
+        t->tm_sec  = 0;
+        return mktime(t);
+    }
+};
+
 class Employee {
  public:
     Employee() : hourlyValue(10), id(++sequence) {}
@@ -19,38 +60,16 @@ class Employee {
         return billableHours(t->tm_mon + 1, t->tm_year + 1900);
     };
 
-    static int sequence;
     static int workDays(int month, int year, time_t start) {
-        tm time;
+        DateUtil t(month, year);
+        int      qty = 0;
 
-        std::memset(&time, 0, sizeof(tm));
-        time.tm_year = year - 1900;
-        time.tm_mon  = month - 1;
-        time.tm_mday = 1;
-        time_t t     = mktime(&time);
-
-        time_t now   = std::time(0);
-        tm    *tmp   = std::localtime(&now);
-        tmp->tm_sec  = 0;
-        tmp->tm_min  = 0;
-        tmp->tm_hour = 0;
-        now          = mktime(tmp);
-        // std::cout << "now " << std::ctime(&now) << t << "\n";
-        time_t tomorrow = now + (60 * 60 * 24);
-        // std::cout << "tomorrow " << std::ctime(&tomorrow) << t << "\n";
-        // std::cout << "start " << std::ctime(&start);
-        int qty = 0;
-        while (time.tm_mon == month - 1) {
-            // std::cout << std::ctime(&t);
-
-            // std::cout << (t >= start) << " " << (t < tomorrow) << "\n";
-            if (t >= start && t < tomorrow) {
-                // std::cout << "inc\n";
-                // std::cout << std::ctime(&t) << std::ctime(&tomorrow);
-                ++qty;
-            }
-            time.tm_mday += 1;
-            t = mktime(&time);
+        time_t iter = mktime(&t.ref);
+        while (t.ref.tm_mon == month - 1) {
+            if (iter >= t.start_of_month && iter < t.end_of_month)
+                if (iter < t.tomorrow && iter >= start) ++qty;
+            t.ref.tm_mday += 1;
+            iter = mktime(&t.ref);
         }
         return qty;
     }
@@ -59,7 +78,8 @@ class Employee {
     int hourlyValue;
 
  private:
-    int id;
+    static int sequence;
+    int        id;
 
     friend class EmployeeManager;
 };

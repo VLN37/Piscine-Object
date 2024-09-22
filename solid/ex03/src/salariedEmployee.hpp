@@ -7,32 +7,17 @@
 
 class ContractEmployee : public Employee {
  public:
-    ContractEmployee() {
-        time_t now    = std::time(0);
-        tm    *time   = std::localtime(&now);
-        time->tm_hour = 0;
-        time->tm_min  = 0;
-        time->tm_sec  = 0;
-        contractStart = mktime(time);
-    }
+    ContractEmployee() : contractStart() { contractStart = DateUtil::today_date(); }
     int  executeWorkday() { return 7; }
     void requestTimeOff(int hours) { timeOff.insert(std::make_pair(time(0), hours)); }
     int  billableHours(int month, int year) {
-        int days     = workDays(month, year, contractStart);
-        int time_off = 0;
-
-        tm time;
-        memset(&time, 0, sizeof(tm));
-        time.tm_year          = year - 1900;
-        time.tm_mon           = month - 1;
-        time.tm_mday          = 1;
-        time_t start_of_month = mktime(&time);
-        time.tm_mon += 1;
-        time_t end_of_month = mktime(&time);
+        int      days = workDays(month, year, contractStart);
+        DateUtil t(month, year);
+        int      time_off = 0;
 
         std::map<std::time_t, int>::iterator it;
         for (it = timeOff.begin(); it != timeOff.end(); ++it) {
-            if (it->first >= start_of_month && it->first < end_of_month)
+            if (it->first >= t.start_of_month && it->first < t.end_of_month)
                 time_off += it->second;
         }
         return (days * 7) - time_off;
@@ -54,22 +39,14 @@ class Apprentice : public ContractEmployee {
     }
 
     int billableHours(int month, int year) {
-        int worktime = ContractEmployee::billableHours(month, year);
-
-        tm time;
-        memset(&time, 0, sizeof(tm));
-        time.tm_year          = year - 1900;
-        time.tm_mon           = month - 1;
-        time.tm_mday          = 1;
-        time_t start_of_month = mktime(&time);
-        time.tm_mon += 1;
-        time_t end_of_month = mktime(&time);
+        DateUtil t(month, year);
+        int      worktime = ContractEmployee::billableHours(month, year);
 
         int schooltime = 0;
 
         std::map<time_t, int>::iterator it;
         for (it = schoolTime.begin(); it != schoolTime.end(); ++it) {
-            if (it->first >= start_of_month && it->first < end_of_month) {
+            if (it->first >= t.start_of_month && it->first < t.end_of_month) {
                 schooltime += it->second;
             }
         }
