@@ -3,7 +3,11 @@ NAME    = ex.exe
 CC      = clang++
 CFLAGS  = -g3 -Wall -Wextra -Werror -std=c++98 -pedantic -MMD -MP
 SRC     = main.cpp
-INC     =
+INC     = iLogger.hpp \
+          Logger.hpp \
+          iHeader.hpp \
+          Header.hpp \
+
 INCPATH = -I./src
 
 OBJDIR  = obj
@@ -33,6 +37,6 @@ $(OBJDIR):
 re: fclean all
 
 run: all
-	./$(NAME)
+	valgrind ./$(NAME)
 
 -include $(DEPS)
