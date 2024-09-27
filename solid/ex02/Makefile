@@ -1,7 +1,7 @@
 NAME    = ex.exe
 
 CC      = clang++
-CFLAGS  = -g3 -Wall -Wextra -Werror -std=c++98 -pedantic -MMD -MP
+CFLAGS  = -g3 -Wall -Wextra -Werror -pedantic -MMD -MP
 SRC     = main.cpp
 INC     = shape.hpp \
           rectangle.hpp \

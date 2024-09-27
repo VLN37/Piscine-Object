@@ -83,7 +83,8 @@ class Workshop {
         for (; it != ite; ++it) {
             if (it->second == worker) {
                 std::cout << it->second << " removed from " << it->first << "\n";
-                return employees.erase(it);
+                employees.erase(it);
+                break;
             }
         }
     }

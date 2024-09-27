@@ -16,6 +16,6 @@ class Transmission {
     }
 
  private:
-    Transmission() : wheels(NULL) {}
+    Transmission() : wheels(nullptr) {}
     std::vector<Wheel> *wheels;
 };

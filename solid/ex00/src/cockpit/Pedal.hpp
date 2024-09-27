@@ -6,7 +6,7 @@
 
 class Pedal {
  public:
-    Pedal() : part(NULL) {}
+    Pedal() : part(nullptr) {}
 
     void setTarget(ALinkablePart *part) { this->part = part; }
     void use(float p_pression) {

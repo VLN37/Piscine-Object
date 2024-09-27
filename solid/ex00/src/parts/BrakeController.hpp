@@ -14,13 +14,13 @@ class BrakeController : public ALinkablePart {
     void           execute(float p_pression) {
         std::cout << "Executing " << p_pression
                   << " amount of pression to all brakes\n";
-        std::vector<Brake>::iterator it;
-        for (it = brakes.begin(); it != brakes.end(); ++it) it->execute(p_pression);
+        for (auto it = brakes.begin(); it != brakes.end(); ++it)
+            it->execute(p_pression);
     }
 
     void attachBreaks(std::vector<Wheel> *wheels) {
-        std::vector<Brake>::iterator it1 = brakes.begin();
-        std::vector<Wheel>::iterator it2 = wheels->begin();
+        auto it1 = brakes.begin();
+        auto it2 = wheels->begin();
 
         for (; it1 != brakes.end(); ++it1, ++it2) {
             it1->attachWheel(&(*it2));
@@ -28,7 +28,7 @@ class BrakeController : public ALinkablePart {
     }
 
     void rearBrake(float p_pression) {
-        size_t qty = brakes.size();
+        std::size_t qty = brakes.size();
         brakes.at(qty - 1).execute(p_pression);
         if (qty > 1) brakes.at(qty - 2).execute(p_pression);
     }

@@ -44,8 +44,7 @@ class Apprentice : public ContractEmployee {
 
         int schooltime = 0;
 
-        std::map<time_t, int>::iterator it;
-        for (it = schoolTime.begin(); it != schoolTime.end(); ++it) {
+        for (auto it = schoolTime.begin(); it != schoolTime.end(); ++it) {
             if (it->first >= t.start_of_month && it->first < t.end_of_month) {
                 schooltime += it->second;
             }

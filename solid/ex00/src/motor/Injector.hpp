@@ -7,7 +7,7 @@
 
 class Injector : public ALinkablePart {
  public:
-    Injector() : chamber(NULL) {}
+    Injector() : chamber(nullptr) {}
     explicit Injector(ExplosionChamber *chamber) : chamber(chamber) {}
 
     void execute(float p_pression) {

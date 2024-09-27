@@ -6,7 +6,7 @@
 
 class ExplosionChamber {
  public:
-    ExplosionChamber() : crankshaft(NULL) {}
+    ExplosionChamber() : crankshaft(nullptr) {}
     explicit ExplosionChamber(Crankshaft *crankshaft) : crankshaft(crankshaft) {}
 
     void fill(float p_volume) {

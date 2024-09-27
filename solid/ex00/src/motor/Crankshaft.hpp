@@ -6,7 +6,7 @@
 
 class Crankshaft {
  public:
-    Crankshaft() : transmission(NULL) {}
+    Crankshaft() : transmission(nullptr) {}
     explicit Crankshaft(Transmission *transmission) : transmission(transmission) {}
 
     void receiveForce(float p_volume) {

@@ -17,6 +17,6 @@ class Direction {
     }
 
  private:
-    Direction() : wheels(NULL) {}
+    Direction() : wheels(nullptr) {}
     std::vector<Wheel> *wheels;
 };

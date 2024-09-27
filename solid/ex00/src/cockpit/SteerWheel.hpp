@@ -6,7 +6,7 @@
 
 class SteerWheel {
  public:
-    SteerWheel() : dae(NULL) {}
+    SteerWheel() : dae(nullptr) {}
     explicit SteerWheel(Dae *dae) : dae(dae) {}
 
     void setDae(Dae *dae) { this->dae = dae; }
